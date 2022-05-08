@@ -7,15 +7,11 @@ async function getPokemons(i) {
 });
 };
 
-const showPokemons = (pokemon) => {
-    displayPokemons(pokemon);
-}
-
 const main = async() => {
-    for(let i=1; i<=50; i++)
+    for(let i=1; i<=100; i++)
     {
         const pokemon = await getPokemons(i);
-        showPokemons(pokemon);
+        displayPokemons(pokemon);
     };
 }
 
@@ -25,6 +21,15 @@ const displayPokemons = (pokemon) => {
                             <img class="img" src="${pokemon.sprites.front_default}" />
                             <span class="span">${upperCaseFirst(pokemon.name)}</span>
                             <article id="container">${getTypes(pokemon.types)}</article>
+                            <span class="tooltip">
+                                <span class="stats">Stats</span>
+                                <span class="stats">Hp : ${pokemon.stats[0].base_stat}</span>
+                                <span class="stats">Attack : ${pokemon.stats[1].base_stat}</span>
+                                <span class="stats">Defense : ${pokemon.stats[2].base_stat}</span>
+                                <span class="stats">Speed : ${pokemon.stats[3].base_stat}</span>
+                                <span class="stats">Spe-Def : ${pokemon.stats[4].base_stat}</span>
+                                <span class="stats">Spe-Att : ${pokemon.stats[5].base_stat}</span>
+                            </span>
                         </article>`;
 }
 
@@ -44,7 +49,7 @@ const getTypes = (types) => {
 function generateSpans(types) {
     let html = '';
     for(type of types) {
-        html += `<span class="type">${type}</span>`
+        html += `<span class="type ${type.toLowerCase()}">${type}</span>`
     }
     return html
 }
